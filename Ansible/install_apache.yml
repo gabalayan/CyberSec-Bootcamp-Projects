@@ -1,0 +1,12 @@
+---
+
+  - name: Install Apache
+    hosts: webservers
+    become: true
+    tasks:
+
+      -  name: Install Apahce
+         apt:
+           name: apache2
+           state: absent
+
