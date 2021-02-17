@@ -38,7 +38,7 @@
         reload: yes
 
       # Use docker_container module
-    - name: download and launch a docker elk container
+    - name: Download and launch a docker elk container
       docker_container:
         name: elk
         image: sebp/elk:761

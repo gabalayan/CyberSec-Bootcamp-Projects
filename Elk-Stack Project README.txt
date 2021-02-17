@@ -29,12 +29,13 @@ This document contains the following details:
 
 The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the D*mn Vulnerable Web Application.
 
-Load balancing ensures that the application will be highly available, addition to restricting inbound access to the network.
-- _TODO: What aspect of security do load balancers protect? What is the advantage of a jump box?
+Load balancing ensures that the application will be highly available, in addition to restricting inbound access to the network.
+- Load balancing protects the availability component of the C.I.A. triad by making sure that one server does is not overloaded with requests and distributing the data load effectively across other servers on the network. 
+- The importance of having the Jump-Box-Provisioner machine is to be able to automatically change the settings of devices in the network using a single provisioner command. 
 
 Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the file systems of the VMs on the network, as well as system metrics.
-- _TODO: What does Filebeat watch for?_
-- _TODO: What does Metricbeat record?_
+- Filebeat monitors changes in the log files and ships data to Elasticsearch or Logstash for further analysis or indexing.
+- Metricbeat monitors system metrics (CPU usage, memory usage, network statistics) and ships it to Elasticsearch or Logstash
 
 The configuration details of each machine may be found below.
 | Name                 | Function   | Public IP Address | Private IP Address | Operating System |
@@ -68,17 +69,19 @@ A summary of the access policies in place can be found in the table below.
 
 ### Elk Configuration
 
-Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because...
-- _TODO: What is the main advantage of automating configuration with Ansible?_
+Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because it allows multiple devices to be configured simultaneously, and elimminates the risk of human error when configuring the machines manually. 
 
 The playbook implements the following tasks:
-- _TODO: In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
-- ...
-- ...
+- Installs Docker
+- Installs Pyhton 3
+- Increases virtual memory 
+- Use more virtual memory
+- Download and launch a docker ELK container 
+- Enables Docker on system boot
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
-![TODO: Update the path with the name of your screenshot of docker ps output](Images/docker_ps_output.png)
+![https://github.com/gabalayan/CyberSec-Bootcamp-Projects/blob/main/Images/dockerps.JPG]
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
@@ -94,19 +97,28 @@ We have installed the following Beats on these machines:
 - Filebeat
 
 These Beats allow us to collect the following information from each machine:
-- _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
+- Metricbeat collects system metrics, such as CPU usage, RAM usage, and network load from each machine. It is used to monitor system performance and to identify abnormal behavior patterns across the network that could indicate an attack has occured.  
+- Filebeat collects log files, such as changes in sytem files, error messages, and login history, from each machine. It is used to monitor changes in the devices and provide a history of events that occured in the network. 
 
 ### Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the _____ file to _____.
-- Update the _____ file to include...
-- Run the playbook, and navigate to ____ to check that the installation worked as expected.
+- Copy the install-elk.yml file to ~/etc/ansible.
+- Update the intall-elk.yml file to include the correct hosts and remote_user login for your machine.
+- Run the playbook, and navigate to your ELK server to check that the installation worked as expected.
 
-_TODO: Answer the following questions to fill in the blanks:_
-- _Which file is the playbook? Where do you copy it?_
-- _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
-- _Which URL do you navigate to in order to check that the ELK server is running?
-
+## FAQ
+- Which file is the playbook? Where do you copy it?
+	- The playbook to install ELK is caalled install-elk.yml. You can copy it by clicking on the GitHub link with the file name "install-elk.yml"
+- Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?
+	- You have to update the ansible hosts file to specifiy which VMs to run each playbook on. Your machine's IP address must be under "webservers" if installing Filebeat, or under "elk" if installing the ELK server. 
+- Which URL do you navigate to in order to check that the ELK server is running?
+	- To check that the ELK server is running input http://<ELK SERVER IP Address>:5601 into your browser
+		-Example. [http://40.77.98.156:5601/]
+		- If the Kibana webpage loads without any errors you have confirmed that the ELK server is running
+	- To confirm data is being transmitted from Filebeat
+		-[http://<ELK SERVER IP>:5601/app/kibana#/home/tutorial/systemLogs] and click on the "Check data" button at the bottom of the page
+	- To confirm data is being transmitted from Metricbeat
+		-[http://<ELK SERVER IP>:5601/app/kibana#/home/tutorial/systemMetrics] and click on the "Check data" button at the bottom of the page. 
 _As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
