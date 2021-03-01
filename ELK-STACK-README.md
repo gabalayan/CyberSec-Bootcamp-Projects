@@ -1,3 +1,5 @@
+# CyberSec-Bootcamp-Projects
+Projects and assignments completed during UCLA Extension's Cyber Security Boot Camp
 ## Automated ELK Stack Deployment
 
 The files in this repository were used to configure the network depicted below.
@@ -120,5 +122,4 @@ SSH into the control node and follow the steps below:
 	- To confirm data is being transmitted from Filebeat
 		-[http://<ELK SERVER IP>:5601/app/kibana#/home/tutorial/systemLogs] and click on the "Check data" button at the bottom of the page
 	- To confirm data is being transmitted from Metricbeat
-		-[http://<ELK SERVER IP>:5601/app/kibana#/home/tutorial/systemMetrics] and click on the "Check data" button at the bottom of the page. 
-_As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
+		-[http://<ELK SERVER IP>:5601/app/kibana#/home/tutorial/systemMetrics] and click on the "Check data" button at the bottom of the page.
