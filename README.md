@@ -77,6 +77,49 @@ Before you continue, ensure you have met the following requirements:
 6. Click on **Review + Create**
 7. Finalize all your settings and create the VM by clicking the **Create** button again
 
+### Installing **docker.io** onto the Jump box
+1. SSH into your Jump box by running **ssh <Jump box username>@<Jump box IP address>
+	* Ex. ssh azureuser@40.118.247.16
+2. Run **sudo apt update** then **sudo apt install docker.io**
+3. Start Docker with **sudo systemctl start docker**
+4. Verify Docker is running with **sudo systemctl status docker**
+5. Pull the container **cyberxsecurity/ansible**
+	* Run **sudo docker pull cyberxsecurity/ansible**
+6. Launch the Ansible container and connect to it
+	* Run **docker run -ti cyberxsecurity/ansible:latest bash** to create an image with a new container 
+		* The syntax to **create a new** container is **sudo docker run IMAGE_ID**
+	* Run **exit** to quit
+
+### Setting up Provisioners
+1. Run **sudo docker list -a** to find your image.
+2. (If you do not see any containers installed) Run **sudo docker run -it cyberxsecurity/ansible /bin/bash** to run your newly created container and connect to it (Notice the slight change in prompt)
+	* the -it flag allows you to execute a bash session inside the container.
+3. (If you currently see a container installed) Run **sudo docker start [CONTAINER_NAME]**
+	* The syntax to start an **existing** container is **sudo docker start [CONTAINER_NAME]**
+4. Run **sudo docker container list** to see currently running containers and to confirm your container has successfully started.
+5. Run **sudo docker attach [CONTAINER_NAME]** to attach your termina's input the the selected container
+	* In plainspeak this allows you to interact with the container while using the terminal.
+6. While connected to the container, run **ssh-keygen** to create an SSH key
+7. Run **ls .ssh/** to view your keys
+	* View your public key by running **cat .ssh/id_rsa.pub**
+8. Copy the public key string
+9. Return to your Azure portal and configure your Web-VM's password and resets the SSH public key so that it now uses your docker container's new public key.
+	* Paste the copied public key string into the **SSH public key** text box when resetting the SSH public key for each of your Web-VM's
+10. Confirm a successful SSH connection between the container and the Web-VM's by using **ssh** from your jump box Ansible container
+	* Ex. ssh azureuser@10.0.0.4
+		* The syntax for this command is **ssh [Web-VM-Username]@[Web-VM-Private-Address]**
+	* Exit the SSH connection by running **exit**
+11. Edit the Ansible config and hosts file so that it includes the internal IP of the Web-VM's
+	* Locate the Ansible **config** and **hosts** file by running **cd /etc/ansible/** and **ls**
+	* Edit the hosts file by running **nano hosts**
+	* Uncomment the **[webservers]** header line
+		* Add the Web-VM's internal IPs under the **[webservers]** header
+		* Add the python line **ansible_python_interpreter=/usr/bin/python3** besides each address.
+	* Edit the config file by running **nano ansible.cfg**
+		* **Cntrl+W** for the **remote_user** option
+		* Uncomment the **remote_user** line and replace **root** with the Web VM's admin username
+			* Ex. remote_user = <Web-VM-Username>
+12. Run **ansible all -m ping** to confirm all your Web-VM's are now connected to the container. 
 
 ### Creating VM's 2 and 3 - Web VM's
 1. On the home screen, search for "Virtual Machine". Choose the result for **Virtual Machines**
