@@ -18,6 +18,7 @@ Before you continue, ensure you have met the following requirements:
 1. On the home screen, search for "Resource Group". Choose the result for **Resource groups** 
 2. Click on the **+ Add** button and then on **Create resource group**
 3. Create a name for your resource group and choose a region.
+	* Ex. "RED-TEAM"
 4. Click on **Review + Create.** to finalize your settings and create the group. 
 
 ### Setting up the Virtual Network
@@ -50,14 +51,41 @@ Before you continue, ensure you have met the following requirements:
 		**Default-Deny** Priority: 4096, Port: Any, Protocol: Any, Source: Any, Destination: Any, Deny
 
 ### Creating the Jump Box Provisioner Virtual Machine
+1. On the home screen, search for "Virtual Machine". Choose the result for **Virtual Machines**
+2. Click on the **+ Add** button and then on **Create a virtual machine**
+3. Add the following settings for this VM:
+	* Resource group: The resource group you specified for your red team
+	* Virtual machine name: "Jump Box Provisioner"
+	* Region: Same region that you used for your other resources
+	* Availablility options: Default. We will change this setting on other machines. However, for our Jump Box we will keep this at Default. 
+	* Image: Ubuntu Server 18.04
+	* Size: Standard - B1s - 1 vcpus, 1 GiB memory
+4. For SSH, use the following settings
+	* Authentication type: SSH public key
+	* Username: Create a unique username for this machine
+		* Ex. RedAdmin
+	* SSH public key: Paste the public key string that you generated from **cat ~/.ssh/id_rsa.pub** in the pre-requisites
+	* Public inbound ports: Ignore. This will be overwritten by your security group
+	* Select inbound ports: Ignore. This will also be overwritten by your security group
+5. On the **Networking** tab for your VM, set the following settings.
+	* Virtual network: Choose the virtual network you created earlier for Red-Team
+	* Subnet: Choose the subnet created earlier
+	* Public IP: Chooose **Create New** and choose **Static** in the side panel. Give the IP address a unique name.
+	* NIC network security group: Choose **Advanced** and specifiy the custom security group
+	* Accelerated networking: Default
+	* Load Balancing: Default (No)
+6. Click on **Review + Create**
+7. Finalize all your settings and create the VM by clicking the **Create** button again
 
 
-### Creating Virtual Machines
-1. Ensure you are logged into your personal Azure account.
-2. Create a new virtual machine by navigating to **Resource > Add Virtual Machine**
-3. Set Virtual Machine Name to "Web-1"
-4. Set Availability set to "Web-Set"
-5. Set the size to **1-CPU, 2 GB memory**
-6. Set Virtual Machine Username to "azureuser"
-7. Set Virtual Network to "Red-Team-net" in Azure
-8. Set Public IP to **none**
+### Creating VM's 2 and 3 - Web VM's
+1. On the home screen, search for "Virtual Machine". Choose the result for **Virtual Machines**
+2. Click on the **+ Add** button and then on **Create a virtual machine**
+3. Add the following settings for this VM:
+	* Resource group: The resource group you specified for your red team
+	* Virtual machine name: "Web-1" and "Web-2"
+		* You can add more VM's, just keep this naming convension for simplicity.
+	* Region: Same region that you used for your other resources
+	* Availability options: Make sure all of the Web VM's are in the same availability set. 
+		* Availability Options > 'Availability Set' > **Create New**
+			* Give the set an appropriate name and choose this set when creating the other Web VM's.
