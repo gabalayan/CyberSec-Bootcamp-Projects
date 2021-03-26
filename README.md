@@ -118,7 +118,7 @@ Before you continue, ensure you have met the following requirements:
 	* Edit the config file by running **nano ansible.cfg**
 		* **Cntrl+W** for the **remote_user** option
 		* Uncomment the **remote_user** line and replace **root** with the Web VM's admin username
-			* Ex. remote_user = <Web-VM-Username>
+			* Ex. remote_user = [Web-VM-Username]
 12. Run **ansible all -m ping** to confirm all your Web-VM's are now connected to the container. 
 
 ### Creating VM's 2 and 3 - Web VM's

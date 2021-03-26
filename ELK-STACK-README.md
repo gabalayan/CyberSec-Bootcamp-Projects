@@ -30,7 +30,6 @@ This document contains the following details:
 ### Description of the Topology
 
 The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the D*mn Vulnerable Web Application.
-
 Load balancing ensures that the application will be highly available, in addition to restricting inbound access to the network.
 - Load balancing protects the availability component of the C.I.A. triad by making sure that one server does is not overloaded with requests and distributing the data load effectively across other servers on the network. 
 - The importance of having the Jump-Box-Provisioner machine is to be able to automatically change the settings of devices in the network using a single provisioner command. 
