@@ -4,7 +4,7 @@ Projects and assignments completed during UCLA Extension's Cyber Security Boot C
 
 The files in this repository were used to configure the network depicted below.
 
-[Diagrams/ELK Project Network Diagram (1).jpg]
+[https://github.com/gabalayan/ELK-Stack-Project/blob/b4d097111ead0e98db49b131fd5d03cebfcae164/Diagrams/ELK%20Project%20Network%20Diagram%20(1).jpg]
 
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the config files may be used to install only certain pieces of it, such as Filebeat.
 
