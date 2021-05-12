@@ -2,19 +2,6 @@
 
 ### Creating a scalable cloud network and automating ELK Stack deployment to multiple virtual machines using Docker containerization and Ansible playbooks.  
 
-
-These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the config files may be used to install only certain pieces of it, such as Filebeat.
-
-  - [https://github.com/gabalayan/CyberSec-Bootcamp-Projects/blob/main/Ansible/install-elk.yml]
-  - [https://github.com/gabalayan/CyberSec-Bootcamp-Projects/blob/main/Ansible/install_apache.yml]
-  - [https://github.com/gabalayan/CyberSec-Bootcamp-Projects/blob/main/Ansible/install_dvwa.yml]
-  - [https://github.com/gabalayan/CyberSec-Bootcamp-Projects/blob/main/Ansible/filebeat-config.yml]
-  - [https://github.com/gabalayan/CyberSec-Bootcamp-Projects/blob/main/Ansible/filebeat-playbook.yml]
-  - [https://github.com/gabalayan/CyberSec-Bootcamp-Projects/blob/main/Ansible/metricbeat-config.yml]
-  - [https://github.com/gabalayan/CyberSec-Bootcamp-Projects/blob/main/Ansible/metricbeat-playbook.yml]
-  - [https://github.com/gabalayan/CyberSec-Bootcamp-Projects/blob/main/Ansible/hosts.yml]
-  - [https://github.com/gabalayan/CyberSec-Bootcamp-Projects/blob/main/Ansible/ansible.cfg.txt]
-
 This README contains the following details:
 - Description of the Topology
 - Access Policies
@@ -26,7 +13,7 @@ This README contains the following details:
 
 ### Description of the Topology
 
-![](Diagrams/ELK%20Project%20Network%20Diagram%20(1).jpg)
+![Network Topology](Diagrams/ELK%20Project%20Network%20Diagram%20(1).jpg)
 
 The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the D*mn Vulnerable Web Application.
 
@@ -72,7 +59,9 @@ A summary of the access policies in place can be found in the table below.
 
 Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because it allows multiple devices to be configured simultaneously, and elimminates the risk of human error when configuring the machines manually. 
 
-The playbook implements the following tasks:
+[ELK Automation Ansible Playbook](https://github.com/gabalayan/CyberSec-Bootcamp-Projects/blob/main/Ansible/install-elk.yml)
+
+This playbook implements the following tasks:
 - Installs Docker
 - Installs Pyhton 3
 - Increases virtual memory 
@@ -80,9 +69,22 @@ The playbook implements the following tasks:
 - Download and launch a docker ELK container 
 - Enables Docker on system boot
 
-The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
+These .yml files have been tested and used to generate a live ELK deployment on Azure. They can be used to recreate the entire deployment pictured above. Alternatively, select portions of the config files may be used to install only certain pieces of the deployment, such as the file for installing Filebeat. 
+
+  - [Install Apache](https://github.com/gabalayan/CyberSec-Bootcamp-Projects/blob/main/Ansible/install_apache.yml)
+  - [Install DVWA](https://github.com/gabalayan/CyberSec-Bootcamp-Projects/blob/main/Ansible/install_dvwa.yml)
+  - [Install Filebeat](https://github.com/gabalayan/CyberSec-Bootcamp-Projects/blob/main/Ansible/filebeat-playbook.yml)
+  - [Install Metricbeat](https://github.com/gabalayan/CyberSec-Bootcamp-Projects/blob/main/Ansible/metricbeat-playbook.yml)
+  - [Filebeat Configuration](https://github.com/gabalayan/CyberSec-Bootcamp-Projects/blob/main/Ansible/filebeat-config.yml)
+  - [Metricbeat Configuration](https://github.com/gabalayan/CyberSec-Bootcamp-Projects/blob/main/Ansible/metricbeat-config.yml)
+  - [Ansible Hosts Configuration](https://github.com/gabalayan/CyberSec-Bootcamp-Projects/blob/main/Ansible/hosts.yml)
+  - [Ansible Config File for the Azure Environment](Ansible/ansible.cfg)
+
+
+The following screenshot displays the result of running `docker ps` on the provisioner machine after successfully configuring the ELK instance.
 
 ![](Ansible%20Images/dockerps.JPG)
+
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
