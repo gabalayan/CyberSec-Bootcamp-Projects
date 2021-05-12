@@ -81,10 +81,17 @@ These .yml files have been tested and used to generate a live ELK deployment on 
   - [Ansible Config File for the Azure Environment](Ansible/ansible.cfg)
 
 
-The following screenshot displays the result of running `docker ps` on the provisioner machine after successfully configuring the ELK instance.
+The following screenshot displays the result of running `sudo docker ps` on the provisioner machine after successfully configuring the ELK stack.
+* You can start the container by running `sudo docker start <Contaner Name>`
 
 ![](Ansible%20Images/dockerps.JPG)
 
+The following screen is displayed on Kibana when the ELK stack has been configured properly and is receiving data from the virtual machines. You can connect to Kibana by inputting your ELK virtual machine's IP address to your browser. 
+![](ELK%20Images/Project%201%20Kibana%20Screenshot.JPG)
+
+The following notification is shown when the ELK stack is properly receiving information from Metricbeat. A similar notification can be seen when confirming data from Filebeat. You can check for this from the Kibana homepage by navigating to `Home / Add Data / System Metrics`
+
+![](ELK%20Images/Project%201%20Metricbeat%20Green%20Light%20Screenshot.JPG)
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
@@ -95,25 +102,30 @@ This ELK server is configured to monitor the following machines:
 | Web-2 | 10.0.0.5   |
 | Web-3 | 10.0.0.7   |
 
+
+
 We have installed the following Beats on these machines:
 - Metricbeat
 - Filebeat
 
 These Beats allow us to collect the following information from each machine:
-- Metricbeat collects system metrics, such as CPU usage, RAM usage, and network load from each machine. It is used to monitor system performance and to identify abnormal behavior patterns across the network that could indicate an attack has occured.  
-- Filebeat collects log files, such as changes in sytem files, error messages, and login history, from each machine. It is used to monitor changes in the devices and provide a history of events that occured in the network. 
+- `Metricbeat` collects system metrics, such as CPU usage, RAM usage, and network load from each machine. It is used to monitor system performance and to identify abnormal behavior patterns across the network that could indicate an attack has occured.  
+- `Filebeat` collects log files, such as changes in sytem files, error messages, and login history, from each machine. It is used to monitor changes in the devices and provide a history of events that occured in the network. 
 
 ### Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the install-elk.yml file to ~/etc/ansible.
-- Update the intall-elk.yml file to include the correct hosts and remote_user login for your machine.
+- Copy the `install-elk.yml file` to `~/etc/ansible.`
+- Update the `install-elk.yml` file to include the correct hosts and remote_user login for your machine.
+	* Do the same when updating the `Ansible Hosts File` and `Ansible Configuration File`
 - Run the playbook, and navigate to your ELK server to check that the installation worked as expected.
+	* Command to run a playbook is `ansible-playbook <Playbook Name>`
+	* Navigate to the ELK server by inputting `<ELK-VM IP Address>:5601` in your web browser.
 
 ## FAQ
 - Which file is the playbook? Where do you copy it?
-	- The playbook to install ELK is caalled install-elk.yml. You can copy it by clicking on the GitHub link with the file name "install-elk.yml"
+	- The playbook to install ELK is [ELK Automation Ansible Playbook](https://github.com/gabalayan/CyberSec-Bootcamp-Projects/blob/main/Ansible/install-elk.yml). You can copy the file and deploy it on your own machine. 
 - Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?
 	- You have to update the ansible hosts file to specifiy which VMs to run each playbook on. Your machine's IP address must be under "webservers" if installing Filebeat, or under "elk" if installing the ELK server. 
 - Which URL do you navigate to in order to check that the ELK server is running?
